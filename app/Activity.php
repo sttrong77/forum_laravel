@@ -12,7 +12,6 @@ class Activity extends Model
      * @var array
      */
     protected $guarded = [];
-
     /**
      * Fetch the associated subject for the activity.
      *
@@ -22,7 +21,6 @@ class Activity extends Model
     {
         return $this->morphTo();
     }
-
     /**
      * Fetch an activity feed for the given user.
      *
