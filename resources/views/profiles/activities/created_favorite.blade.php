@@ -8,4 +8,4 @@
     @slot('body')
         {{ $activity->subject->favorited->body }}
     @endslot
-+@endcomponent
+@endcomponent
