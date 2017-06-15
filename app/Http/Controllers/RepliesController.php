@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Thread;
+use App\Reply;
 
 class RepliesController extends Controller
 {
@@ -31,5 +32,14 @@ class RepliesController extends Controller
         ]);
 
         return back()->with('flash','Reply enviado com sucesso');
+    }
+
+    public function destroy(Reply $reply){
+
+      $this->authorize('update', $reply);
+
+      $reply->delete();
+
+      return back();
     }
 }
