@@ -27,6 +27,9 @@ class Reply extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
+
+    protected $appends = ['favoritesCount', 'isFavorited']; //carregar no json
+
     public function owner()
     {
         return $this->belongsTo(User::class, 'user_id');

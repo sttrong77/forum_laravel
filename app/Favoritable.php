@@ -30,14 +30,20 @@ trait Favoritable
         }
     }
 
-    /**
-     * Determine if the current reply has been favorited.
-     *
-     * @return boolean
-     */
+    public function unfavorite(){
+      $attributes = ['user_id' => auth()->id()];
+
+      $this->favorites()->where($attributes)->delete();
+
+    }
+
     public function isFavorited()
     {
         return !! $this->favorites->where('user_id', auth()->id())->count();
+    }
+
+    public function getIsFavoritedAttribute(){ //$reply->isFavorited
+      return $this->isFavorited();
     }
 
     /**
@@ -45,7 +51,7 @@ trait Favoritable
      *
      * @return integer
      */
-    public function getFavoritesCountAttribute()
+    public function getFavoritesCountAttribute() //$reply->favoritesCount
     {
         return $this->favorites->count();
     }
