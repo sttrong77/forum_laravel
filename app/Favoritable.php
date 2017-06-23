@@ -11,6 +11,14 @@ trait Favoritable
      *
      * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */
+
+     protected static function bootFavoritable()
+     {
+         static::deleting(function ($model) {
+             $model->favorites->each->delete();
+         });
+     }
+
     public function favorites()
     {
         return $this->morphMany(Favorite::class, 'favorited');
@@ -33,13 +41,14 @@ trait Favoritable
     public function unfavorite(){
       $attributes = ['user_id' => auth()->id()];
 
-      $this->favorites()->where($attributes)->delete();
+      $this->favorites()->where($attributes)->get()->each->delete(); //deleta em favorites e activites
+
 
     }
 
     public function isFavorited()
     {
-        return !! $this->favorites->where('user_id', auth()->id())->count();
+        return ! ! $this->favorites->where('user_id', auth()->id())->count();
     }
 
     public function getIsFavoritedAttribute(){ //$reply->isFavorited
